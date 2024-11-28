@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 const connectDB = require("./config/dbConnection.js")
 
+const userRoutes =require ('./routes/userRoutes.js')
+
 
 dotenv.config()
 
@@ -28,7 +30,7 @@ app.get('/', (req,res) =>{
 
 app.use(express.json())
 
-
+app.use('/users', userRoutes)
 
 app.post('/login',(req,res)=>{
     console.log(req.body)
@@ -36,7 +38,7 @@ app.post('/login',(req,res)=>{
     console.log("email ", req.body.email)
     
 
-    if (!req.body.email  || !req.body.password){
+    if (!req.body.userName || !req.body.email){
         return res.status(400).json({ error:"userName and email not found"})
     }
     return res.status(200).json({ message: "log in successfully"
@@ -45,15 +47,16 @@ app.post('/login',(req,res)=>{
 }) 
 
 
-const userSchema = new mongoose.Schema({
+/*const userSchema = new mongoose.Schema({
     userName: { type: "string" , required:true},
     email: { type: "string" , required:true},
 })
-
-const User = mongoose.model('Users',userSchema)
-
+*/
+const User =require ('./models/User.js')
 
 //create account
+
+/*
 app.post('/users', async (req,res)=>{
     try{
         const user = await User.create({
@@ -71,12 +74,12 @@ app.post('/users', async (req,res)=>{
 
    }
 })
-
+*/
 
 //read (get account by ID)
 
 
-app.get ('/users/:id', async(req,res)=>{
+/*app.get ('/users/:id', async(req,res)=>{
     try{
         console.log(req.params.id)
         const user =await User.findById(req.params.id)
@@ -96,11 +99,11 @@ app.get ('/users/:id', async(req,res)=>{
         res.status(400).json(err)
     }
 })
-
+*/
 
 //update
 
-app.put('/users/:id' , async (req,res)=>{
+/* app.put('/users/:id' , async (req,res)=>{
     try{
 
    
@@ -128,11 +131,12 @@ catch(err){
 }
 
 })
+*/
 
 
 //delete
 
-app.delete( '/users/:id', async (req,res)=> {
+/* app.delete( '/users/:id', async (req,res)=> {
 
     try{
         const deleteUser = await User.findByIdAndDelete(req.params.id)
@@ -150,6 +154,4 @@ app.delete( '/users/:id', async (req,res)=> {
     catch(err){
         res.status(400).json(err)
     }
-})
-
-
+}) */
