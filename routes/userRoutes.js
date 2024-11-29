@@ -7,13 +7,13 @@ const router = express.Router();
 
 const {getAllUsers,createUser,updateUser,findUser, deleteUser} = require('../controllers/userController') 
 
-router.post('/', getAllUsers );
+router.get('/', getAllUsers );
 
 router.post('/', createUser );
 
 router.put('/:id' , updateUser);
 
-router.put('/:id' , findUser);
+router.get('/:id' , findUser);
 
 router.delete( '/:id', deleteUser );
 
